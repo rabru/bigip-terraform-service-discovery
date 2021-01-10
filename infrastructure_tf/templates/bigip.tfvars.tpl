@@ -1,0 +1,5 @@
+address  = "${addr}"
+username = "${username}"
+password = "${pwd}"
+port = "${port}"
+internal_address = "10.0.0.200"

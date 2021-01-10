@@ -1,0 +1,9 @@
+app_name = "aws_sd"
+app_port = 8080
+
+## AWS Auto Scaling Group:
+# Desired number of server
+aws_asg_desired = 2 
+# Maximal number of server
+aws_asg_max     = 4
+

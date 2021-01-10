@@ -1,0 +1,6 @@
+prefix                  = "${prefix}"
+region                  = "${region}"
+aws_sg_nginx_id         = "${aws_sg_nginx_id}"
+aws_vpc_zone_identifier = "${aws_vpc_zone_identifier}"
+aws_iam_instance_name   = "${aws_iam_instance_name}"
+aws_key_name            = "${aws_key_name}"
