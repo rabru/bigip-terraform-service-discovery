@@ -68,10 +68,19 @@ terraform plan
 terraform apply
 ```
 
-With `terraform output` you will get again the final output.
-
 After the terraform deployment finished, the BIG-IP still need some additional minutes do get initiated and to install the AS3 rpm packet.
 Please have this in mind before you continue with the next steps.
+
+With `terraform output` you will get again the final output.
+```
+$ terraform output
+Consul_UI = http://11.22.33.44:8500
+F5_IP = 11.22.33.55
+F5_Password = 71234e1jrY8WB436
+F5_UI = https://11.22.33.55:8443
+F5_Username = bigipuser
+F5_ssh = ssh -i terraform-20210110163720016600000001.pem admin@11.22.33.55
+```
 
 ## Deploy AWS Service Discovery application
 
