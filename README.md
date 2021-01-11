@@ -5,14 +5,14 @@ Out of several reason server deployments can be very dynamic:
 - Auto Scale implementations
 - Dynamic IP assignments
 
-Therefor it is a good idea to get the server deployment out of the Infrastructure as Code (IaC) definition.
-To enable this, F5 add into the declarative AS3 deployment Service Discovery,
+Therefore it is a good idea to get server deployment out of the Infrastructure as Code (IaC) definition.
+To enable this, F5 integrate into the declarative AS3 deployment Service Discovery capability,
 which can discover dynamically server based on external data store.
 Therefore the server deployments can be maintained independent and dynamic, without interfering into the Code of the Infrastructure.
 [Here](https://clouddocs.f5.com/products/extensions/f5-appsvcs-extension/latest/declarations/discovery.html?highlight=service%20discovery)
 you can find the documentation of Service Discovery in AS3.  
 
-The IaC implementation is done over terraform and will be deployed in AWS.
+In this demo the IaC implementation is done over terraform and will be deployed in AWS.
 
 # Architecture
 
@@ -88,7 +88,7 @@ Here we will discover the server IP based on the EC2 instance tagging in aws.
 [Here](https://clouddocs.f5.com/products/extensions/f5-appsvcs-extension/latest/declarations/discovery.html?highlight=service%20discovery) 
 you can find the related documentation. 
 
-:warning: Be aware that this deployment needs AWS credentials, which I will grep from `~/.aws/credentials`. If you don't like it, please modify it in the `apply.sh` script to your needs.
+:warning: Be aware that this deployment needs AWS credentials, which will be grepped from `~/.aws/credentials`. If you don't like it, please modify it in the `apply.sh` script to your needs.
 
 Copy the folder of the application base definition. This way you can create as many new applications instances as needed.
 ```
@@ -98,7 +98,7 @@ cd aws-app1_tf
 
 Modify `terraform.tfvars.example`:
 - Specify application name to avoid name collisions
-- Specify port for the application. Be aware: For this demo I just opened the port range 8080 to 8088.
+- Specify port for the application. Be aware: In this demo the port range from 8080 to 8088 is available.
 
 Rename `terraform.tfvars.example` to us the specified variables:
 ```
