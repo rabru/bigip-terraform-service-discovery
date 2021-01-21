@@ -15,7 +15,7 @@
           "class": "Service_HTTP",
           "virtualPort": ${virtual_port},
           "virtualAddresses": [
-            "10.0.0.200"
+            "${virtual_address}"
           ],
           "pool": "web_pool",
           "persistenceMethods": [],

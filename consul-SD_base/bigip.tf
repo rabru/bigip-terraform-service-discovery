@@ -17,8 +17,9 @@ provider "bigip" {
 data "template_file" "nginx_json" {
   template = file("templates/nginx.tpl")
   vars = {
-    tenant       = var.app_name,
-    virtual_port = var.app_port,
+    tenant          = var.app_name,
+    virtual_port    = var.app_port,
+    virtual_address = var.internal_address
   }
 }
 

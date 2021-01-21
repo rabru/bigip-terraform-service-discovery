@@ -5,10 +5,8 @@ Out of several reason server deployments can be very dynamic:
 - Auto Scale implementations
 - Dynamic IP assignments
 
-Therefore it is a good idea to get server deployment out of the Infrastructure as Code (IaC) definition.
-To enable this, F5 integrate into the declarative AS3 deployment Service Discovery capability,
-which can discover dynamically server based on external data store.
-Therefore the server deployments can be maintained independent and dynamic, without interfering into the Code of the Infrastructure.
+Therefore, it is a good idea to get server setup out of the Infrastructure as Code (IaC) definition. With AS3 Service Discovery, F5 enables dynamic server discovery in the declaration and enables an external definition of the pool members setup.
+Whis this integration, the server deployments can be maintained independent and dynamic, without interfering into the Code of the Infrastructure.
 [Here](https://clouddocs.f5.com/products/extensions/f5-appsvcs-extension/latest/declarations/discovery.html?highlight=service%20discovery)
 you can find the documentation of Service Discovery in AS3.  
 
@@ -33,7 +31,7 @@ The example application deployments are based on the following elements:
 This demo has been developed on Debian buster.  
 
 - terraform 0.13
-- aws cli (including credentials to an AWS account)
+- aws cli (including default credentials setup in ~/.aws/credentials)
 - openssl
 
 ## Preparations 
@@ -46,14 +44,15 @@ cd bigip-terraform-service-discovery
 
 ## Deploy Infrastructure
 
-Enter the infrastructure folder:
+The infrastructure_base we will keep as a resource for new deployments, so that we could create new deployments based on it. to create on new infrastructure, copy the folder and enter it:
 ```
-cd infrastructure_tf
+cp -r infrastructure_base infA_tf
+cd infA_tf
 ```
 
 Modify `terraform.tfvars.example`:
-- Add a prefix to identify your resources
-- Specify the source IP address you will be connecting from i.e. 192.0.2.10/32
+- Add a prefix to identify your resources. If you deploy several infrastructures you should avoid name collisions.
+- Specify the source IP address you will be connecting from i.e. 192.0.2.10/32 to limit remote access. You might use `curl ifconfig.co` to get your external IP
 - Specify your preferred AWS region 
 
 Rename `terraform.tfvars.example` to us the specified variables:
@@ -105,12 +104,12 @@ Rename `terraform.tfvars.example` to us the specified variables:
 mv terraform.tfvars.example terraform.tfvars
 ```
 
-To pull all needed variables from the infrastructure start the apply script:
+To pull all needed variables from the infrastructure start the apply script. As parameter is the path to the preferred infrastructure needed:
 ```
-./apply.sh
+./apply.sh ../initA_tf
 ```
 
-This will also include the initiation of terraform. For an automated deployment you could also add the `terraform apply` here, but since this is a demo, I prefere to do it maually. Therefor the next step would be:
+This will also include the initiation of terraform. For an automated deployment you could also add the `terraform apply` here, but since this is a demo, I prefer to do it manually. Therefor the next step would be:
 ```
 terraform apply
 ```

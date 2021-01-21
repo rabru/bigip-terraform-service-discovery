@@ -29,7 +29,7 @@ resource "aws_autoscaling_group" "nginx" {
 data "template_file" "nginx_init" {
   template = file("templates/nginx_sh.tpl")
   vars = {
-    service_name = var.app_name
+    service_name    = var.app_name
   }
 }
 

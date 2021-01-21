@@ -19,7 +19,7 @@ data "template_file" "nginx_json" {
   vars = {
     tenant          = var.app_name
     virtual_port    = var.app_port
-    virtual_address = "10.0.0.200"
+    virtual_address = var.internal_address
     tag_value       = "${var.prefix}-${var.app_name}"
     aws_access_key_id     = var.aws_access_key_id
     aws_secret_access_key = var.aws_secret_access_key

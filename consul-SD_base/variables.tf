@@ -6,6 +6,7 @@ variable "address" {}
 variable "port" {}
 variable "username" {}
 variable "password" {}
+variable "internal_address" {}
 
 # AWS:
 variable "prefix" {}
