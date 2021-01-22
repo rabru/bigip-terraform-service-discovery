@@ -6,5 +6,4 @@ echo "aws_access_key_id = \"`grep aws_access_key_id ~/.aws/credentials | cut -d'
 echo "aws_secret_access_key = \"`grep aws_secret_access_key ~/.aws/credentials | cut -d'=' -f2`\"" >> aws.auto.tfvars
 
 terraform init
-terraform apply -auto-approve
-
+#terraform apply -auto-approve
