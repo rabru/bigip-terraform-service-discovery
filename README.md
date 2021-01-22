@@ -44,7 +44,7 @@ cd bigip-terraform-service-discovery
 
 ## Deploy Infrastructure
 
-The infrastructure_base we will keep as a resource for new deployments, so that we could create new deployments based on it. to create on new infrastructure, copy the folder and enter it:
+The folder Infrastructure_base we will keep as a resource for new deployments, so that we could create new deployments based on it. To create on new infrastructure, copy the folder and enter the target folder:
 ```
 cp -r infrastructure_base infA_tf
 cd infA_tf
@@ -81,10 +81,16 @@ F5_Username = bigipuser
 F5_ssh = ssh -i terraform-20210110163720016600000001.pem admin@11.22.33.55
 ```
 
-## Deploy AWS Service Discovery application
+To remove the deployment, please use:
+```
+terraform destroy
+```
+
+
+## Deploy AWS Service Discovery
 
 Here we will discover the server IP based on the EC2 instance tagging in aws. 
-[Here](https://clouddocs.f5.com/products/extensions/f5-appsvcs-extension/latest/declarations/discovery.html?highlight=service%20discovery) 
+[Here](https://clouddocs.f5.com/products/extensions/f5-appsvcs-extension/latest/declarations/discovery.html#using-service-discovery-to-automatically-populate-a-pool) 
 you can find the related documentation. 
 
 :warning: Be aware that this deployment needs AWS credentials, which will be grepped from `~/.aws/credentials`. If you don't like it, please modify it in the `apply.sh` script to your needs.
@@ -112,6 +118,48 @@ To pull all needed variables from the infrastructure start the apply script. As 
 This will also include the initiation of terraform. For an automated deployment you could also add the `terraform apply` here, but since this is a demo, I prefer to do it manually. Therefor the next step would be:
 ```
 terraform apply
+```
+
+To remove the deployment, please use:
+```
+./destroy
+```
+
+
+## Deploy Consul Service Discovery
+
+In this deployment we use Consul for the Service Discovery. We also take the health status under consideration to make sure to integrate only servers in the pool which are up and running. 
+[Here](https://clouddocs.f5.com/products/extensions/f5-appsvcs-extension/latest/declarations/discovery.html#service-discovery-using-hashicorp-consul)
+you can find the related documentation.
+
+Copy the folder of the application base definition. This way you can create as many new applications instances as needed.
+```
+cp -r consul-SD_base consul-app2_tf
+cd consul-app2_tf
+```
+
+Modify `terraform.tfvars.example`:
+- Specify application name to avoid name collisions
+- Specify port for the application. Be aware: In this demo the port range from 8080 to 8088 is available.
+
+Rename `terraform.tfvars.example` to us the specified variables:
+```
+mv terraform.tfvars.example terraform.tfvars
+```
+
+To pull all needed variables from the infrastructure start the apply script. As parameter is the path to the preferred infrastructure needed:
+```
+./apply.sh ../initA_tf
+```
+
+This will also include the initiation of terraform. For an automated deployment you could also add the `terraform apply` here, but since this is a demo, I prefer to do it manually. Therefor the next step would be:
+```
+terraform apply
+```
+
+To remove the deployment, please use:
+```
+./destroy
 ```
 
 
