@@ -24,19 +24,3 @@ resource "null_resource" "wait_bigip" {
   }
 }
 
-resource "null_resource" "deploy_dummy_vs" {
-
-  # This VS is created to get the virtual address in the common partition.
-  # Ony then we can share the same virtual address over several AS3 tenants.
-  depends_on = [null_resource.wait_bigip]
-  provisioner "local-exec" {
-    command = <<-EOF
-        #!/bin/bash
-        curl -k -X POST https://${module.bigip.0.mgmtPublicIP[0]}:8443/mgmt/tm/ltm/virtual \
-             -u ${module.bigip.0.f5_username}:${module.bigip.0.bigip_password} \
-             -H "Content-Type: application/json" \
-             -d "{\"name\": \"dummy_vs\", \"destination\": \"/Common/10.0.0.200:80\", \"vlansEnabled\": true}"
-EOF
-  }
-}
-

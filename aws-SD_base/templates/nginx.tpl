@@ -14,6 +14,7 @@
         "serviceMain": {
           "class": "Service_HTTP",
           "virtualPort": ${virtual_port},
+          "shareAddresses": true,
           "virtualAddresses": [
             "${virtual_address}"
           ],
