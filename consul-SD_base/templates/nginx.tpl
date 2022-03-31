@@ -32,6 +32,7 @@
           "members": [
             {
               "servicePort": 80,
+	      "shareNodes": true,
               "addressDiscovery": "consul",
               "updateInterval": 10,
               "uri": "http://10.0.0.100:8500/v1/health/service/${tenant}?passing",
